@@ -19,15 +19,15 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup Dart
-        uses: dart-lang/setup-dart@v1
-        with:
-          sdk: 3.6.0  # ✅ Fix Dart version mismatch issue
-
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 3.22.3  # ✅ Match latest Flutter version
+          flutter-version: 3.22.3  # ✅ Ensure latest Flutter is installed
+
+      - name: Setup Dart (After Flutter)
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 3.6.0  # ✅ Force Dart 3.6.0 AFTER Flutter installs
 
       - name: Verify Flutter & Dart Installation
         run: |
@@ -50,15 +50,15 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup Dart
-        uses: dart-lang/setup-dart@v1
-        with:
-          sdk: 3.6.0
-
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: 3.22.3
+
+      - name: Setup Dart (After Flutter)
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 3.6.0
 
       - name: Enable Windows Desktop
         run: flutter config --enable-windows-desktop
@@ -84,15 +84,15 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup Dart
-        uses: dart-lang/setup-dart@v1
-        with:
-          sdk: 3.6.0
-
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: 3.22.3
+
+      - name: Setup Dart (After Flutter)
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 3.6.0
 
       - name: Enable macOS Desktop
         run: flutter config --enable-macos-desktop
@@ -118,15 +118,15 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup Dart
-        uses: dart-lang/setup-dart@v1
-        with:
-          sdk: 3.6.0
-
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: 3.22.3
+
+      - name: Setup Dart (After Flutter)
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 3.6.0
 
       - name: Enable Linux Desktop
         run: flutter config --enable-linux-desktop
