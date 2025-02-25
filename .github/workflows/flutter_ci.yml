@@ -59,13 +59,13 @@ jobs:
         run: flutter pub get
 
       - name: Build Windows Executable
-        run: flutter build windows --release
+        run: flutter build windows --release --verbose
 
       - name: Upload Windows Build Artifact
         uses: actions/upload-artifact@v4
         with:
           name: windows-release
-          path: build/windows/runner/Release/
+          path: build/windows/x64/runner/Release/  # ✅ Corrected Path
 
   build-macos:
     name: Build macOS Release
@@ -88,13 +88,13 @@ jobs:
         run: flutter pub get
 
       - name: Build macOS App
-        run: flutter build macos --release
+        run: flutter build macos --release --verbose
 
       - name: Upload macOS Build Artifact
         uses: actions/upload-artifact@v4
         with:
           name: macos-release
-          path: build/macos/Build/Products/Release/
+          path: build/macos/Build/Products/Release/  # ✅ Corrected Path
 
   build-linux:
     name: Build Linux Release
@@ -127,14 +127,13 @@ jobs:
         run: flutter pub get
 
       - name: Build Linux Executable (Debug Mode)
-        run: |
-          flutter build linux --release --verbose
+        run: flutter build linux --release --verbose
 
       - name: Upload Linux Build Artifact
         uses: actions/upload-artifact@v4
         with:
           name: linux-release
-          path: build/linux/x64/release/bundle/
+          path: build/linux/x64/release/bundle/  # ✅ Corrected Path
 
   release:
     name: Create GitHub Release
