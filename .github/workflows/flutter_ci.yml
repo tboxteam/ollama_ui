@@ -1,0 +1,31 @@
+name: Flutter CI/CD
+
+on:  # ✅ This defines when the workflow runs
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  test:
+    name: Run Flutter Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: stable
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Run Unit Tests
+        run: flutter test
