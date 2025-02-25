@@ -66,18 +66,32 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
 
-      - name: Ensure CMake and Ninja Are Installed
+      - name: Verify CMake and Ninja
         run: |
-          choco install cmake ninja -y
+          cmake --version
+          ninja --version
+        continue-on-error: true  # Allow logging even if one tool is missing
+
+      - name: Install CMake and Ninja (If Needed)
+        run: |
+          if (-not (Get-Command cmake -ErrorAction SilentlyContinue)) {
+            choco install cmake -y
+          }
+          if (-not (Get-Command ninja -ErrorAction SilentlyContinue)) {
+            choco install ninja -y
+          }
+
+      - name: Recheck CMake and Ninja After Install
+        run: |
           cmake --version
           ninja --version
 
       - name: Clean Windows Build Directory
         run: |
-          rd /s /q build\windows || echo "No existing build directory"
+          if (Test-Path build\windows) { Remove-Item -Recurse -Force build\windows }
           flutter clean
 
-      - name: Regenerate CMake Project
+      - name: Build Windows Executable
         run: |
           flutter pub get
           flutter build windows --release --verbose
@@ -88,7 +102,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: windows-build-logs
-          path: build/windows/runner/Release/
+          path: build/windows/
 
       - name: Upload Windows Build Artifact
         if: success()
