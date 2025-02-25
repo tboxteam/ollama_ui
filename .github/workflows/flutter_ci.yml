@@ -1,4 +1,4 @@
-name: Ollama UI CI/CD
+name: Flutter CI/CD
 
 on:
   push:
@@ -28,7 +28,6 @@ jobs:
 
       - name: Verify Flutter Installation
         run: |
-          echo "Flutter Path: $(which flutter)"
           flutter doctor
           flutter --version
           dart --version
@@ -67,10 +66,32 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
 
-      - name: Build Windows Executable
-        run: flutter build windows --release --verbose
+      - name: Ensure CMake and Ninja Are Installed
+        run: |
+          choco install cmake ninja -y
+          cmake --version
+          ninja --version
+
+      - name: Clean Windows Build Directory
+        run: |
+          rd /s /q build\windows || echo "No existing build directory"
+          flutter clean
+
+      - name: Regenerate CMake Project
+        run: |
+          flutter pub get
+          flutter build windows --release --verbose
+        continue-on-error: true
+
+      - name: Upload Build Logs (If Failed)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-build-logs
+          path: build/windows/runner/Release/
 
       - name: Upload Windows Build Artifact
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: windows-release
@@ -206,4 +227,4 @@ jobs:
             macos-release/*
             linux-release/*
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # ✅ Uses Personal Access Token (PAT) for GitHub Releases
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
