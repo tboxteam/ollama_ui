@@ -42,4 +42,4 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-docs/github_token.txt
+/docs/github_token.txt
