@@ -63,29 +63,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Cache Flutter SDK
-        id: cache-flutter
-        uses: actions/cache@v4
-        with:
-          path: C:\hostedtoolcache\windows\flutter
-          key: flutter-3.29.0-windows
-
-      - name: Install Flutter (Only if Not Cached)
-        if: steps.cache-flutter.outputs.cache-hit != 'true'
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: 3.29.0
-
       - name: Enable Windows Desktop
         run: flutter config --enable-windows-desktop
-
-      - name: Cache Pub Dependencies
-        uses: actions/cache@v4
-        with:
-          path: C:\Users\runneradmin\AppData\Local\Pub\Cache
-          key: pub-cache-windows-${{ hashFiles('**/pubspec.yaml') }}
-          restore-keys: |
-            pub-cache-windows-
 
       - name: Install Dependencies
         run: flutter pub get
@@ -108,29 +87,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Cache Flutter SDK
-        id: cache-flutter
-        uses: actions/cache@v4
-        with:
-          path: /Users/runner/hostedtoolcache/flutter
-          key: flutter-3.29.0-macos
-
-      - name: Install Flutter (Only if Not Cached)
-        if: steps.cache-flutter.outputs.cache-hit != 'true'
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: 3.29.0
-
       - name: Enable macOS Desktop
         run: flutter config --enable-macos-desktop
-
-      - name: Cache Pub Dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.pub-cache
-          key: pub-cache-macos-${{ hashFiles('**/pubspec.yaml') }}
-          restore-keys: |
-            pub-cache-macos-
 
       - name: Install Dependencies
         run: flutter pub get
@@ -153,19 +111,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Cache Flutter SDK
-        id: cache-flutter
-        uses: actions/cache@v4
-        with:
-          path: /opt/hostedtoolcache/flutter
-          key: flutter-3.29.0-linux
-
-      - name: Install Flutter (Only if Not Cached)
-        if: steps.cache-flutter.outputs.cache-hit != 'true'
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: 3.29.0
-
       - name: Install Linux Dependencies
         run: |
           sudo apt update
@@ -178,14 +123,6 @@ jobs:
 
       - name: Enable Linux Desktop
         run: flutter config --enable-linux-desktop
-
-      - name: Cache Pub Dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.pub-cache
-          key: pub-cache-linux-${{ hashFiles('**/pubspec.yaml') }}
-          restore-keys: |
-            pub-cache-linux-
 
       - name: Install Dependencies
         run: flutter pub get
@@ -242,4 +179,5 @@ jobs:
             windows-release/*
             macos-release/*
             linux-release/*
-          token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # ✅ Use Personal Access Token (PAT)
