@@ -19,16 +19,16 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup Flutter
+      - name: Install Latest Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 3.22.3  # ✅ Ensures latest Flutter is installed
+          flutter-version: latest  # ✅ Always installs the newest stable Flutter version
 
-      - name: Upgrade Flutter & Dart
+      - name: Verify Flutter & Dart Installation
         run: |
-          flutter upgrade  # ✅ Ensures Flutter is fully updated
+          flutter doctor
           flutter --version
-          dart --version  # ✅ Confirms Dart version before dependency installation
+          dart --version
 
       - name: Install Dependencies
         run: flutter pub get
@@ -45,14 +45,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup Flutter
+      - name: Install Latest Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 3.22.3
+          flutter-version: latest
 
-      - name: Upgrade Flutter & Dart
+      - name: Verify Flutter & Dart Installation
         run: |
-          flutter upgrade
+          flutter doctor
           flutter --version
           dart --version
 
@@ -80,14 +80,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup Flutter
+      - name: Install Latest Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 3.22.3
+          flutter-version: latest
 
-      - name: Upgrade Flutter & Dart
+      - name: Verify Flutter & Dart Installation
         run: |
-          flutter upgrade
+          flutter doctor
           flutter --version
           dart --version
 
@@ -115,14 +115,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup Flutter
+      - name: Install Latest Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 3.22.3
+          flutter-version: latest
 
-      - name: Upgrade Flutter & Dart
+      - name: Verify Flutter & Dart Installation
         run: |
-          flutter upgrade
+          flutter doctor
           flutter --version
           dart --version
 
