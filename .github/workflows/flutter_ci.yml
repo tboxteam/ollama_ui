@@ -70,7 +70,7 @@ jobs:
         run: |
           cmake --version
           ninja --version
-        continue-on-error: true  # Allow logging even if one tool is missing
+        continue-on-error: true
 
       - name: Install CMake and Ninja (If Needed)
         run: |
@@ -225,6 +225,24 @@ jobs:
           name: linux-release
           path: linux-release/
 
+      - name: Compress Windows Build
+        run: |
+          cd windows-release
+          zip -r ../OllamaUI-Windows.zip .
+          cd ..
+
+      - name: Compress macOS Build
+        run: |
+          cd macos-release
+          zip -r ../OllamaUI-macOS.zip .
+          cd ..
+
+      - name: Compress Linux Build
+        run: |
+          cd linux-release
+          zip -r ../OllamaUI-Linux.zip .
+          cd ..
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
@@ -237,8 +255,8 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            windows-release/*
-            macos-release/*
-            linux-release/*
+            OllamaUI-Windows.zip
+            OllamaUI-macOS.zip
+            OllamaUI-Linux.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
