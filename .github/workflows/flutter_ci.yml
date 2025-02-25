@@ -6,7 +6,7 @@ on:
       - main
       - dev
     tags:
-      - 'v*'  # ✅ Automatically trigger releases when pushing version tags
+      - 'v*'
   pull_request:
     branches:
       - main
@@ -21,7 +21,15 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Install Flutter 3.29.0
+      - name: Cache Flutter SDK
+        id: cache-flutter
+        uses: actions/cache@v4
+        with:
+          path: /opt/hostedtoolcache/flutter
+          key: flutter-3.29.0-${{ runner.os }}
+
+      - name: Install Flutter (Only if Not Cached)
+        if: steps.cache-flutter.outputs.cache-hit != 'true'
         uses: subosito/flutter-action@v2
         with:
           flutter-version: 3.29.0
@@ -31,6 +39,14 @@ jobs:
           flutter doctor
           flutter --version
           dart --version
+
+      - name: Cache Pub Dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.pub-cache
+          key: pub-cache-${{ runner.os }}-${{ hashFiles('**/pubspec.yaml') }}
+          restore-keys: |
+            pub-cache-${{ runner.os }}-
 
       - name: Install Dependencies
         run: flutter pub get
@@ -47,13 +63,29 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Install Flutter 3.29.0
+      - name: Cache Flutter SDK
+        id: cache-flutter
+        uses: actions/cache@v4
+        with:
+          path: C:\hostedtoolcache\windows\flutter
+          key: flutter-3.29.0-windows
+
+      - name: Install Flutter (Only if Not Cached)
+        if: steps.cache-flutter.outputs.cache-hit != 'true'
         uses: subosito/flutter-action@v2
         with:
           flutter-version: 3.29.0
 
       - name: Enable Windows Desktop
         run: flutter config --enable-windows-desktop
+
+      - name: Cache Pub Dependencies
+        uses: actions/cache@v4
+        with:
+          path: C:\Users\runneradmin\AppData\Local\Pub\Cache
+          key: pub-cache-windows-${{ hashFiles('**/pubspec.yaml') }}
+          restore-keys: |
+            pub-cache-windows-
 
       - name: Install Dependencies
         run: flutter pub get
@@ -65,7 +97,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: windows-release
-          path: build/windows/x64/runner/Release/  # ✅ Corrected Path
+          path: build/windows/x64/runner/Release/
 
   build-macos:
     name: Build macOS Release
@@ -76,13 +108,29 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Install Flutter 3.29.0
+      - name: Cache Flutter SDK
+        id: cache-flutter
+        uses: actions/cache@v4
+        with:
+          path: /Users/runner/hostedtoolcache/flutter
+          key: flutter-3.29.0-macos
+
+      - name: Install Flutter (Only if Not Cached)
+        if: steps.cache-flutter.outputs.cache-hit != 'true'
         uses: subosito/flutter-action@v2
         with:
           flutter-version: 3.29.0
 
       - name: Enable macOS Desktop
         run: flutter config --enable-macos-desktop
+
+      - name: Cache Pub Dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.pub-cache
+          key: pub-cache-macos-${{ hashFiles('**/pubspec.yaml') }}
+          restore-keys: |
+            pub-cache-macos-
 
       - name: Install Dependencies
         run: flutter pub get
@@ -94,7 +142,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: macos-release
-          path: build/macos/Build/Products/Release/  # ✅ Corrected Path
+          path: build/macos/Build/Products/Release/
 
   build-linux:
     name: Build Linux Release
@@ -105,7 +153,15 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Install Flutter 3.29.0
+      - name: Cache Flutter SDK
+        id: cache-flutter
+        uses: actions/cache@v4
+        with:
+          path: /opt/hostedtoolcache/flutter
+          key: flutter-3.29.0-linux
+
+      - name: Install Flutter (Only if Not Cached)
+        if: steps.cache-flutter.outputs.cache-hit != 'true'
         uses: subosito/flutter-action@v2
         with:
           flutter-version: 3.29.0
@@ -123,6 +179,14 @@ jobs:
       - name: Enable Linux Desktop
         run: flutter config --enable-linux-desktop
 
+      - name: Cache Pub Dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.pub-cache
+          key: pub-cache-linux-${{ hashFiles('**/pubspec.yaml') }}
+          restore-keys: |
+            pub-cache-linux-
+
       - name: Install Dependencies
         run: flutter pub get
 
@@ -133,7 +197,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: linux-release
-          path: build/linux/x64/release/bundle/  # ✅ Corrected Path
+          path: build/linux/x64/release/bundle/
 
   release:
     name: Create GitHub Release
@@ -166,8 +230,8 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref_name }}  # ✅ Use the tag that triggered this release
-          name: OllamaUI ${{ github.ref_name }}  # ✅ Automatically names the release
+          tag_name: ${{ github.ref_name }}
+          name: OllamaUI ${{ github.ref_name }}
           body: |
             ## Changes in this release
             - Automated build via GitHub Actions
