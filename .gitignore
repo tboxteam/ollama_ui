@@ -26,8 +26,9 @@ jobs:
         with:
           flutter-version: 3.29.0
 
-      - name: Verify Flutter & Dart Installation
+      - name: Verify Flutter Installation
         run: |
+          echo "Flutter Path: $(which flutter)"
           flutter doctor
           flutter --version
           dart --version
@@ -54,6 +55,12 @@ jobs:
 
       - name: Enable Windows Desktop
         run: flutter config --enable-windows-desktop
+
+      - name: Verify Flutter Installation
+        run: |
+          where flutter
+          flutter doctor
+          flutter --version
 
       - name: Install Dependencies
         run: flutter pub get
@@ -83,6 +90,12 @@ jobs:
 
       - name: Enable macOS Desktop
         run: flutter config --enable-macos-desktop
+
+      - name: Verify Flutter Installation
+        run: |
+          which flutter
+          flutter doctor
+          flutter --version
 
       - name: Install Dependencies
         run: flutter pub get
@@ -122,6 +135,12 @@ jobs:
 
       - name: Enable Linux Desktop
         run: flutter config --enable-linux-desktop
+
+      - name: Verify Flutter Installation
+        run: |
+          which flutter
+          flutter doctor
+          flutter --version
 
       - name: Install Dependencies
         run: flutter pub get
@@ -179,4 +198,4 @@ jobs:
             macos-release/*
             linux-release/*
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # ✅ Uses Personal Access Token (PAT) for permissions
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # ✅ Uses Personal Access Token (PAT) for GitHub Releases
