@@ -21,10 +21,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Install Flutter
+      - name: Remove Existing Flutter Cache (Force Fresh Install)
+        run: rm -rf ~/.pub-cache ~/.flutter
+
+      - name: Install Flutter (No Caching)
         uses: subosito/flutter-action@v2
         with:
           flutter-version: 3.29.0
+          cache: false  # 🚨 Ensure caching is fully disabled
 
       - name: Verify Flutter Installation
         run: |
@@ -33,8 +37,8 @@ jobs:
           flutter --version
           dart --version
 
-      - name: Install Dependencies
-        run: flutter pub get
+      - name: Install Dependencies (No Caching)
+        run: flutter pub get --no-cache  # 🚨 Ensure no cache is used
 
       - name: Run Unit Tests
         run: flutter test
@@ -50,10 +54,14 @@ jobs:
         with:
           fetch-depth: 0  # Ensure all tags are fetched
 
-      - name: Install Flutter
+      - name: Remove Existing Flutter Cache (Force Fresh Install)
+        run: rm -rf ~/.pub-cache ~/.flutter
+
+      - name: Install Flutter (No Caching)
         uses: subosito/flutter-action@v2
         with:
           flutter-version: 3.29.0
+          cache: false
 
       - name: Enable Windows Desktop
         run: flutter config --enable-windows-desktop
@@ -64,8 +72,8 @@ jobs:
           flutter doctor
           flutter --version
 
-      - name: Install Dependencies
-        run: flutter pub get
+      - name: Install Dependencies (No Caching)
+        run: flutter pub get --no-cache
 
       - name: Build Windows Executable
         run: flutter build windows --release --verbose
@@ -85,12 +93,16 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Ensure all tags are fetched
+          fetch-depth: 0
 
-      - name: Install Flutter
+      - name: Remove Existing Flutter Cache (Force Fresh Install)
+        run: rm -rf ~/.pub-cache ~/.flutter
+
+      - name: Install Flutter (No Caching)
         uses: subosito/flutter-action@v2
         with:
           flutter-version: 3.29.0
+          cache: false
 
       - name: Enable macOS Desktop
         run: flutter config --enable-macos-desktop
@@ -101,8 +113,8 @@ jobs:
           flutter doctor
           flutter --version
 
-      - name: Install Dependencies
-        run: flutter pub get
+      - name: Install Dependencies (No Caching)
+        run: flutter pub get --no-cache
 
       - name: Build macOS App
         run: flutter build macos --release --verbose
@@ -122,12 +134,16 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Ensure all tags are fetched
+          fetch-depth: 0
 
-      - name: Install Flutter
+      - name: Remove Existing Flutter Cache (Force Fresh Install)
+        run: rm -rf ~/.pub-cache ~/.flutter
+
+      - name: Install Flutter (No Caching)
         uses: subosito/flutter-action@v2
         with:
           flutter-version: 3.29.0
+          cache: false
 
       - name: Install Linux Dependencies
         run: |
@@ -148,8 +164,8 @@ jobs:
           flutter doctor
           flutter --version
 
-      - name: Install Dependencies
-        run: flutter pub get
+      - name: Install Dependencies (No Caching)
+        run: flutter pub get --no-cache
 
       - name: Build Linux Executable
         run: flutter build linux --release --verbose
@@ -170,7 +186,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Ensure all tags are fetched
+          fetch-depth: 0
 
       - name: Download Windows Build
         uses: actions/download-artifact@v4
