@@ -1,6 +1,6 @@
 name: Flutter CI/CD
 
-on:  # ✅ This defines when the workflow runs
+on:
   push:
     branches:
       - main
@@ -22,10 +22,102 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: stable
+          flutter-version: 3.22.3  # ✅ Use the latest stable Flutter version
+
+      - name: Verify Flutter Installation
+        run: |
+          flutter doctor
+          flutter --version
 
       - name: Install Dependencies
         run: flutter pub get
 
       - name: Run Unit Tests
         run: flutter test
+
+  build-windows:
+    name: Build Windows Release
+    runs-on: windows-latest
+    needs: test
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.22.3  # ✅ Explicitly set to latest version
+
+      - name: Enable Windows Desktop
+        run: flutter config --enable-windows-desktop
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Build Windows Executable
+        run: flutter build windows --release
+
+      - name: Upload Windows Build Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: windows-release
+          path: build/windows/runner/Release/
+
+  build-macos:
+    name: Build macOS Release
+    runs-on: macos-latest
+    needs: test
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.22.3  # ✅ Explicitly set to latest version
+
+      - name: Enable macOS Desktop
+        run: flutter config --enable-macos-desktop
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Build macOS App
+        run: flutter build macos --release
+
+      - name: Upload macOS Build Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: macos-release
+          path: build/macos/Build/Products/Release/
+
+  build-linux:
+    name: Build Linux Release
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.22.3  # ✅ Explicitly set to latest version
+
+      - name: Enable Linux Desktop
+        run: flutter config --enable-linux-desktop
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Build Linux Executable
+        run: flutter build linux --release
+
+      - name: Upload Linux Build Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: linux-release
+          path: build/linux/x64/release/bundle/
