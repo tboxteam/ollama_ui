@@ -6,7 +6,7 @@ on:
       - main
       - dev
     tags:
-      - 'v*'
+      - 'v*'  # ✅ Automatically trigger releases when pushing version tags
   pull_request:
     branches:
       - main
@@ -166,6 +166,14 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ github.ref_name }}  # ✅ Use the tag that triggered this release
+          name: OllamaUI ${{ github.ref_name }}  # ✅ Automatically names the release
+          body: |
+            ## Changes in this release
+            - Automated build via GitHub Actions
+            - Supports Windows, macOS, and Linux
+          draft: false
+          prerelease: false
           files: |
             windows-release/*
             macos-release/*
