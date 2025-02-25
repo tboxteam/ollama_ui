@@ -22,18 +22,13 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 3.22.3  # ✅ Ensure latest Flutter is installed
+          flutter-version: 3.22.3  # ✅ Ensures latest Flutter is installed
 
-      - name: Setup Dart (After Flutter)
-        uses: dart-lang/setup-dart@v1
-        with:
-          sdk: 3.6.0  # ✅ Force Dart 3.6.0 AFTER Flutter installs
-
-      - name: Verify Flutter & Dart Installation
+      - name: Upgrade Flutter & Dart
         run: |
-          flutter doctor
+          flutter upgrade  # ✅ Ensures Flutter is fully updated
           flutter --version
-          dart --version
+          dart --version  # ✅ Confirms Dart version before dependency installation
 
       - name: Install Dependencies
         run: flutter pub get
@@ -55,10 +50,11 @@ jobs:
         with:
           flutter-version: 3.22.3
 
-      - name: Setup Dart (After Flutter)
-        uses: dart-lang/setup-dart@v1
-        with:
-          sdk: 3.6.0
+      - name: Upgrade Flutter & Dart
+        run: |
+          flutter upgrade
+          flutter --version
+          dart --version
 
       - name: Enable Windows Desktop
         run: flutter config --enable-windows-desktop
@@ -89,10 +85,11 @@ jobs:
         with:
           flutter-version: 3.22.3
 
-      - name: Setup Dart (After Flutter)
-        uses: dart-lang/setup-dart@v1
-        with:
-          sdk: 3.6.0
+      - name: Upgrade Flutter & Dart
+        run: |
+          flutter upgrade
+          flutter --version
+          dart --version
 
       - name: Enable macOS Desktop
         run: flutter config --enable-macos-desktop
@@ -123,10 +120,11 @@ jobs:
         with:
           flutter-version: 3.22.3
 
-      - name: Setup Dart (After Flutter)
-        uses: dart-lang/setup-dart@v1
-        with:
-          sdk: 3.6.0
+      - name: Upgrade Flutter & Dart
+        run: |
+          flutter upgrade
+          flutter --version
+          dart --version
 
       - name: Enable Linux Desktop
         run: flutter config --enable-linux-desktop
