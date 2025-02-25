@@ -21,32 +21,17 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Cache Flutter SDK
-        id: cache-flutter
-        uses: actions/cache@v4
-        with:
-          path: /opt/hostedtoolcache/flutter
-          key: flutter-3.29.0-${{ runner.os }}
-
-      - name: Install Flutter (Only if Not Cached)
-        if: steps.cache-flutter.outputs.cache-hit != 'true'
+      - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: 3.29.0
 
-      - name: Verify Flutter & Dart Installation
+      - name: Verify Flutter Installation
         run: |
+          echo "Flutter Path: $(which flutter)"
           flutter doctor
           flutter --version
           dart --version
-
-      - name: Cache Pub Dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.pub-cache
-          key: pub-cache-${{ runner.os }}-${{ hashFiles('**/pubspec.yaml') }}
-          restore-keys: |
-            pub-cache-${{ runner.os }}-
 
       - name: Install Dependencies
         run: flutter pub get
@@ -62,9 +47,22 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Ensure all tags are fetched
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.29.0
 
       - name: Enable Windows Desktop
         run: flutter config --enable-windows-desktop
+
+      - name: Verify Flutter Installation
+        run: |
+          where flutter
+          flutter doctor
+          flutter --version
 
       - name: Install Dependencies
         run: flutter pub get
@@ -86,9 +84,22 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Ensure all tags are fetched
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.29.0
 
       - name: Enable macOS Desktop
         run: flutter config --enable-macos-desktop
+
+      - name: Verify Flutter Installation
+        run: |
+          which flutter
+          flutter doctor
+          flutter --version
 
       - name: Install Dependencies
         run: flutter pub get
@@ -110,6 +121,13 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Ensure all tags are fetched
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.29.0
 
       - name: Install Linux Dependencies
         run: |
@@ -124,10 +142,16 @@ jobs:
       - name: Enable Linux Desktop
         run: flutter config --enable-linux-desktop
 
+      - name: Verify Flutter Installation
+        run: |
+          which flutter
+          flutter doctor
+          flutter --version
+
       - name: Install Dependencies
         run: flutter pub get
 
-      - name: Build Linux Executable (Debug Mode)
+      - name: Build Linux Executable
         run: flutter build linux --release --verbose
 
       - name: Upload Linux Build Artifact
@@ -145,6 +169,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Ensure all tags are fetched
 
       - name: Download Windows Build
         uses: actions/download-artifact@v4
@@ -180,4 +206,4 @@ jobs:
             macos-release/*
             linux-release/*
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # ✅ Use Personal Access Token (PAT)
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # ✅ Uses Personal Access Token (PAT) for GitHub Releases
