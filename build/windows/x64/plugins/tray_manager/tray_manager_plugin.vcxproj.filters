@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\OneDrive\work\projects\ollama_ui\windows\flutter\ephemeral\.plugin_symlinks\tray_manager\windows\tray_manager_plugin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\OneDrive\work\projects\ollama_ui\windows\flutter\ephemeral\.plugin_symlinks\tray_manager\windows\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{1F4313F7-0B5B-3706-A605-6A64075F2ADA}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
