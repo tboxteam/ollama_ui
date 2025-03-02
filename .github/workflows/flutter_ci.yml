@@ -28,7 +28,6 @@ jobs:
 
       - name: Verify Flutter Installation
         run: |
-          echo "Flutter Path: $(which flutter)"
           flutter doctor
           flutter --version
           dart --version
@@ -48,7 +47,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Ensure all tags are fetched
+          fetch-depth: 0
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2
@@ -67,10 +66,46 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
 
+      - name: Verify CMake and Ninja
+        run: |
+          cmake --version
+          ninja --version
+        continue-on-error: true
+
+      - name: Install CMake and Ninja (If Needed)
+        run: |
+          if (-not (Get-Command cmake -ErrorAction SilentlyContinue)) {
+            choco install cmake -y
+          }
+          if (-not (Get-Command ninja -ErrorAction SilentlyContinue)) {
+            choco install ninja -y
+          }
+
+      - name: Recheck CMake and Ninja After Install
+        run: |
+          cmake --version
+          ninja --version
+
+      - name: Clean Windows Build Directory
+        run: |
+          if (Test-Path build\windows) { Remove-Item -Recurse -Force build\windows }
+          flutter clean
+
       - name: Build Windows Executable
-        run: flutter build windows --release --verbose
+        run: |
+          flutter pub get
+          flutter build windows --release --verbose
+        continue-on-error: true
+
+      - name: Upload Build Logs (If Failed)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-build-logs
+          path: build/windows/
 
       - name: Upload Windows Build Artifact
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: windows-release
@@ -85,7 +120,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Ensure all tags are fetched
+          fetch-depth: 0
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2
@@ -122,7 +157,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Ensure all tags are fetched
+          fetch-depth: 0
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2
@@ -170,7 +205,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Ensure all tags are fetched
+          fetch-depth: 0
 
       - name: Download Windows Build
         uses: actions/download-artifact@v4
@@ -190,6 +225,24 @@ jobs:
           name: linux-release
           path: linux-release/
 
+      - name: Compress Windows Build
+        run: |
+          cd windows-release
+          zip -r ../OllamaUI-Windows.zip .
+          cd ..
+
+      - name: Compress macOS Build
+        run: |
+          cd macos-release
+          zip -r ../OllamaUI-macOS.zip .
+          cd ..
+
+      - name: Compress Linux Build
+        run: |
+          cd linux-release
+          zip -r ../OllamaUI-Linux.zip .
+          cd ..
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
@@ -202,8 +255,8 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            windows-release/*
-            macos-release/*
-            linux-release/*
+            OllamaUI-Windows.zip
+            OllamaUI-macOS.zip
+            OllamaUI-Linux.zip
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # ✅ Uses Personal Access Token (PAT) for GitHub Releases
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}

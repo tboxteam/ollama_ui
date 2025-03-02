@@ -24,7 +24,7 @@ events:
       The output was:
       0
       MSBuild version 17.9.8+b34f75857 for .NET Framework
-      Build started 2/25/2025 9:35:43 PM.
+      Build started 3/2/2025 9:22:47 PM.
       
       Project "D:\\OneDrive\\work\\projects\\ollama_ui\\build\\windows\\x64\\CMakeFiles\\3.28.0-msvc1\\CompilerIdCXX\\CompilerIdCXX.vcxproj" on node 1 (default targets).
       PrepareForBuild:
@@ -53,7 +53,7 @@ events:
           0 Warning(s)
           0 Error(s)
       
-      Time Elapsed 00:00:21.68
+      Time Elapsed 00:00:01.69
       
       
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -72,8 +72,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "D:/OneDrive/work/projects/ollama_ui/build/windows/x64/CMakeFiles/CMakeScratch/TryCompile-9g1em4"
-      binary: "D:/OneDrive/work/projects/ollama_ui/build/windows/x64/CMakeFiles/CMakeScratch/TryCompile-9g1em4"
+      source: "D:/OneDrive/work/projects/ollama_ui/build/windows/x64/CMakeFiles/CMakeScratch/TryCompile-zjrb6b"
+      binary: "D:/OneDrive/work/projects/ollama_ui/build/windows/x64/CMakeFiles/CMakeScratch/TryCompile-zjrb6b"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
@@ -82,40 +82,40 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'D:/OneDrive/work/projects/ollama_ui/build/windows/x64/CMakeFiles/CMakeScratch/TryCompile-9g1em4'
+        Change Dir: 'D:/OneDrive/work/projects/ollama_ui/build/windows/x64/CMakeFiles/CMakeScratch/TryCompile-zjrb6b'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_01f8c.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_b8db5.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         MSBuild version 17.9.8+b34f75857 for .NET Framework
-        Build started 2/25/2025 9:36:05 PM.
+        Build started 3/2/2025 9:22:49 PM.
         
-        Project "D:\\OneDrive\\work\\projects\\ollama_ui\\build\\windows\\x64\\CMakeFiles\\CMakeScratch\\TryCompile-9g1em4\\cmTC_01f8c.vcxproj" on node 1 (default targets).
+        Project "D:\\OneDrive\\work\\projects\\ollama_ui\\build\\windows\\x64\\CMakeFiles\\CMakeScratch\\TryCompile-zjrb6b\\cmTC_b8db5.vcxproj" on node 1 (default targets).
         PrepareForBuild:
-          Creating directory "cmTC_01f8c.dir\\Debug\\".
+          Creating directory "cmTC_b8db5.dir\\Debug\\".
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Creating directory "D:\\OneDrive\\work\\projects\\ollama_ui\\build\\windows\\x64\\CMakeFiles\\CMakeScratch\\TryCompile-9g1em4\\Debug\\".
-          Creating directory "cmTC_01f8c.dir\\Debug\\cmTC_01f8c.tlog\\".
+          Creating directory "D:\\OneDrive\\work\\projects\\ollama_ui\\build\\windows\\x64\\CMakeFiles\\CMakeScratch\\TryCompile-zjrb6b\\Debug\\".
+          Creating directory "cmTC_b8db5.dir\\Debug\\cmTC_b8db5.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_01f8c.dir\\Debug\\cmTC_01f8c.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-          Touching "cmTC_01f8c.dir\\Debug\\cmTC_01f8c.tlog\\unsuccessfulbuild".
+          Creating "cmTC_b8db5.dir\\Debug\\cmTC_b8db5.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_b8db5.dir\\Debug\\cmTC_b8db5.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_01f8c.dir\\Debug\\\\" /Fd"cmTC_01f8c.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.28\\Modules\\CMakeCXXCompilerABI.cpp"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_b8db5.dir\\Debug\\\\" /Fd"cmTC_b8db5.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.28\\Modules\\CMakeCXXCompilerABI.cpp"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33523 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_01f8c.dir\\Debug\\\\" /Fd"cmTC_01f8c.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.28\\Modules\\CMakeCXXCompilerABI.cpp"
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_b8db5.dir\\Debug\\\\" /Fd"cmTC_b8db5.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.28\\Modules\\CMakeCXXCompilerABI.cpp"
           CMakeCXXCompilerABI.cpp
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\OneDrive\\work\\projects\\ollama_ui\\build\\windows\\x64\\CMakeFiles\\CMakeScratch\\TryCompile-9g1em4\\Debug\\cmTC_01f8c.exe" /INCREMENTAL /ILK:"cmTC_01f8c.dir\\Debug\\cmTC_01f8c.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/OneDrive/work/projects/ollama_ui/build/windows/x64/CMakeFiles/CMakeScratch/TryCompile-9g1em4/Debug/cmTC_01f8c.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/OneDrive/work/projects/ollama_ui/build/windows/x64/CMakeFiles/CMakeScratch/TryCompile-9g1em4/Debug/cmTC_01f8c.lib" /MACHINE:X64  /machine:x64 cmTC_01f8c.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_01f8c.vcxproj -> D:\\OneDrive\\work\\projects\\ollama_ui\\build\\windows\\x64\\CMakeFiles\\CMakeScratch\\TryCompile-9g1em4\\Debug\\cmTC_01f8c.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\OneDrive\\work\\projects\\ollama_ui\\build\\windows\\x64\\CMakeFiles\\CMakeScratch\\TryCompile-zjrb6b\\Debug\\cmTC_b8db5.exe" /INCREMENTAL /ILK:"cmTC_b8db5.dir\\Debug\\cmTC_b8db5.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/OneDrive/work/projects/ollama_ui/build/windows/x64/CMakeFiles/CMakeScratch/TryCompile-zjrb6b/Debug/cmTC_b8db5.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/OneDrive/work/projects/ollama_ui/build/windows/x64/CMakeFiles/CMakeScratch/TryCompile-zjrb6b/Debug/cmTC_b8db5.lib" /MACHINE:X64  /machine:x64 cmTC_b8db5.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_b8db5.vcxproj -> D:\\OneDrive\\work\\projects\\ollama_ui\\build\\windows\\x64\\CMakeFiles\\CMakeScratch\\TryCompile-zjrb6b\\Debug\\cmTC_b8db5.exe
         FinalizeBuildStatus:
-          Deleting file "cmTC_01f8c.dir\\Debug\\cmTC_01f8c.tlog\\unsuccessfulbuild".
-          Touching "cmTC_01f8c.dir\\Debug\\cmTC_01f8c.tlog\\cmTC_01f8c.lastbuildstate".
-        Done Building Project "D:\\OneDrive\\work\\projects\\ollama_ui\\build\\windows\\x64\\CMakeFiles\\CMakeScratch\\TryCompile-9g1em4\\cmTC_01f8c.vcxproj" (default targets).
+          Deleting file "cmTC_b8db5.dir\\Debug\\cmTC_b8db5.tlog\\unsuccessfulbuild".
+          Touching "cmTC_b8db5.dir\\Debug\\cmTC_b8db5.tlog\\cmTC_b8db5.lastbuildstate".
+        Done Building Project "D:\\OneDrive\\work\\projects\\ollama_ui\\build\\windows\\x64\\CMakeFiles\\CMakeScratch\\TryCompile-zjrb6b\\cmTC_b8db5.vcxproj" (default targets).
         
         Build succeeded.
             0 Warning(s)
             0 Error(s)
         
-        Time Elapsed 00:00:00.53
+        Time Elapsed 00:00:00.65
         
       exitCode: 0
 ...
