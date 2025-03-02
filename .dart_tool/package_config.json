@@ -200,12 +200,6 @@
       "languageVersion": "3.0"
     },
     {
-      "name": "flutter_lints",
-      "rootUri": "file:///D:/flutter_pub_cache/hosted/pub.dev/flutter_lints-3.0.2",
-      "packageUri": "lib/",
-      "languageVersion": "3.1"
-    },
-    {
       "name": "flutter_local_notifications",
       "rootUri": "file:///D:/flutter_pub_cache/hosted/pub.dev/flutter_local_notifications-18.0.1",
       "packageUri": "lib/",
@@ -366,12 +360,6 @@
       "rootUri": "file:///D:/flutter_pub_cache/hosted/pub.dev/leak_tracker_testing-3.0.1",
       "packageUri": "lib/",
       "languageVersion": "3.2"
-    },
-    {
-      "name": "lints",
-      "rootUri": "file:///D:/flutter_pub_cache/hosted/pub.dev/lints-3.0.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.0"
     },
     {
       "name": "logger",
@@ -698,7 +686,7 @@
       "languageVersion": "3.4"
     }
   ],
-  "generated": "2025-02-25T02:53:43.990987Z",
+  "generated": "2025-03-02T13:42:53.413168Z",
   "generator": "pub",
   "generatorVersion": "3.7.0",
   "flutterRoot": "file:///S:/dev/flutter",
