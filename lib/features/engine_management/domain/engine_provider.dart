@@ -87,6 +87,7 @@ class EngineNotifier extends StateNotifier<EngineStatus> {
       state = state.copyWith(state: EngineState.online, selectedModel: model);
     } catch (e) {
       await LoggingService.log("Error loading model $model: $e");
+      state = state.copyWith(state: EngineState.ready);
     }
   }
 

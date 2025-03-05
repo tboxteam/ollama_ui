@@ -18,27 +18,48 @@ class ModelSelectionScreenState extends ConsumerState<ModelSelectionScreen> {
   Future<void> activateModel(String model) async {
     final engineNotifier = ref.read(engineProvider.notifier);
     final current = ref.read(engineProvider).selectedModel;
+
     if (current == model) return; // Already active
 
-    // Immediately set this model as activating to update the UI.
     setState(() {
       _activatingModel = model;
     });
 
+    bool modelLoaded = false;
+
     try {
       // Unload the current active model first.
       await engineNotifier.unloadModel(current);
-
       // Then load the new (intended) model.
+
       await engineNotifier.loadModel(model);
+      modelLoaded = ref.watch(engineProvider).state == EngineState.online;
     } catch (e) {
       await LoggingService.log("Error switching from $current to $model: $e");
     }
-
-    // Clear the activating flag once complete.
     setState(() {
       _activatingModel = "";
     });
+
+    if (!modelLoaded) {
+      // Clear activating flag before showing the error dialog.
+
+      if (mounted) {
+        await showDialog<void>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text("Error Activating Model"),
+            content: Text("Failed to activate $model."),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text("OK"),
+              ),
+            ],
+          ),
+        );
+      }
+    }
   }
 
   Future<void> removeModel(String model) async {
@@ -116,6 +137,39 @@ class ModelSelectionScreenState extends ConsumerState<ModelSelectionScreen> {
     ref.read(modelProvider.notifier).fetchModels();
   }
 
+  Future<void> _showInstallWarningDialog(String model) async {
+    final bool? proceed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Warning'),
+        content: const Text(
+          'Installing a large language model may:\n\n'
+          '• Require significant disk space\n'
+          '• Slow down your computer during installation\n'
+          '• Impact system performance\n\n'
+          'Are you sure you want to proceed?',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Install'),
+          ),
+        ],
+      ),
+    );
+
+    if (proceed == true) {
+      await LoggingService.log('Installing model after warning: $model');
+      await ref.read(modelProvider.notifier).installModel(model);
+    } else {
+      await LoggingService.log('Model installation cancelled by user: $model');
+    }
+  }
+
   // Helper function to build the action button.
   Widget _buildModelActionButton({
     required String label,
@@ -125,9 +179,25 @@ class ModelSelectionScreenState extends ConsumerState<ModelSelectionScreen> {
   }) {
     // For simplicity, we use withOpacity (as before).
     final Color disabledColor = baseColor.withAlpha(0);
+
+    // If the label is "Activating", replace the icon with a circular progress indicator.
+    Widget iconWidget;
+    if (label == "Activating") {
+      iconWidget = SizedBox(
+        width: 16,
+        height: 16,
+        child: CircularProgressIndicator(
+          strokeWidth: 2.0,
+          valueColor: AlwaysStoppedAnimation<Color>(baseColor),
+        ),
+      );
+    } else {
+      iconWidget = Icon(icon, color: baseColor);
+    }
+
     return ElevatedButton.icon(
       onPressed: onPressed,
-      icon: Icon(icon, color: baseColor),
+      icon: iconWidget,
       label: Text(
         label,
         style: TextStyle(color: baseColor),
@@ -273,8 +343,9 @@ class ModelSelectionScreenState extends ConsumerState<ModelSelectionScreen> {
                 ? _buildModelActionButton(
                     label: "Install",
                     icon: Icons.download,
-                    onPressed:
-                        disableOther ? null : () => installModel(fullModelName),
+                    onPressed: disableOther
+                        ? null
+                        : () => _showInstallWarningDialog(fullModelName),
                     baseColor: Colors.orange,
                   )
                 : (isInstalled && !isActive)
@@ -345,9 +416,16 @@ class ModelSelectionScreenState extends ConsumerState<ModelSelectionScreen> {
                       _buildSectionHeader("Available Models", headerStyle),
                       ...modelState.availableModels.expand((modelMap) {
                         final String modelName = modelMap["name"];
-                        final List<String> subVersions =
-                            List<String>.from(modelMap["subVersions"]);
-                        final String modelInfo = modelMap["info"];
+                        final List<dynamic> subVersionsDynamic =
+                            modelMap["subVersions"] ?? [];
+                        final List<String> subVersions = subVersionsDynamic
+                                .isEmpty
+                            ? [
+                                "latest"
+                              ] // Use "latest" when no size versions are available
+                            : List<String>.from(subVersionsDynamic);
+                        final String modelInfo = modelMap["info"] ?? "";
+
                         return [
                           Padding(
                             padding: const EdgeInsets.all(8.0),

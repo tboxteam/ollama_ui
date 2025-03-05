@@ -160,7 +160,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
     final String buttonText = isOffline
         ? 'Install Ollama'
         : isReady
-            ? 'Install Model'
+            ? 'Load Model'
             : 'Switch Model';
 
     return ElevatedButton(

@@ -23,7 +23,7 @@ class EngineRepository {
   Future<bool> isOllamaRunning() async {
     try {
       final response = await _client.get(Uri.parse(ollamaApiUrl));
-      if (response.statusCode == 200 && response.body == "Ollama is running.") {
+      if (response.statusCode == 200 && response.body == "Ollama is running") {
         return true;
       }
     } catch (e) {
@@ -36,6 +36,7 @@ class EngineRepository {
   /// Starts Ollama if it is not running.
   Future<void> startOllama() async {
     final isRunning = await isOllamaRunning();
+
     if (!isRunning) {
       await Process.start('ollama', ['serve']);
       // Wait a couple of seconds to allow Ollama to start
