@@ -249,14 +249,15 @@ jobs:
           tag_name: ${{ github.ref_name }}
           name: OllamaUI ${{ github.ref_name }}
           body: |
-            ## Changes in this release
+            ## Changes in this Pre-Release
             - Automated build via GitHub Actions
-            - Supports Windows, macOS, and Linux
+            - **Only Windows version is functional** (macOS & Linux builds are not working yet)
+            - **Engine Management & Status**: Automatically detects, installs, and updates the Ollama engine as needed. Runs as a background service and displays status.
+            - **Chat & Engine Interaction**: Provides a chat interface for user queries, displaying AI-generated responses.
+            - **Basic Model Management**: Lists available models, allows users to load a model, and enables model deletion.
           draft: false
-          prerelease: false
+          prerelease: true
           files: |
             OllamaUI-Windows.zip
-            OllamaUI-macOS.zip
-            OllamaUI-Linux.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
